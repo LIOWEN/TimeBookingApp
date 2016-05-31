@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:id="@+id/submit"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:background="#3b499f"
+        android:textColor="#FFFFFFFF"
+        android:layout_marginBottom="2dp"
+        android:layout_marginRight="2dp" />
+
+    <CalendarView
+        android:layout_width="wrap_content"
+        android:layout_height="300dp"
+        android:id="@+id/calendarView"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/projectCode" />
+
+    <Spinner
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/monthSelector"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="3dp" />
+
+    <Spinner
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/typeSelector"
+        android:layout_alignBottom="@+id/monthSelector"
+        android:layout_toRightOf="@+id/monthSelector"
+        android:layout_toEndOf="@+id/monthSelector"
+        android:layout_marginTop="3dp" />
+
+    <EditText
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/projectCode"
+        android:layout_below="@+id/monthSelector"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/typeSelector"
+        android:layout_toStartOf="@+id/typeSelector"
+        android:hint="Project Code" />
+
+    <EditText
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/taskNum"
+        android:layout_below="@+id/monthSelector"
+        android:layout_toRightOf="@+id/monthSelector"
+        android:layout_alignRight="@+id/typeSelector"
+        android:layout_alignEnd="@+id/typeSelector"
+        android:hint="Task Number" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:id="@+id/comment"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/taskNum"
+        android:hint="Comment"
+        android:layout_toLeftOf="@+id/taskNum"
+        android:layout_alignTop="@+id/hoursBox"
+        android:textAlignment="gravity"
+        android:textIsSelectable="false" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/hoursBox"
+        android:layout_above="@+id/submit"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_toRightOf="@+id/comment"
+        android:layout_toEndOf="@+id/comment"
+        android:layout_alignParentStart="false"
+        android:hint="Time (Hours)" />
+
+</RelativeLayout>

@@ -1,0 +1,35 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="cap.dtx.MainActivity">
+    <item
+        android:id="@+id/home"
+        android:orderInCategory="1"
+        android:title="@string/home"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/booking"
+        android:orderInCategory="5"
+        android:title="@string/booking"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/holidays"
+        android:orderInCategory="5"
+        android:title="@string/holidays"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/approvals"
+        android:orderInCategory="5"
+        android:title="@string/approvals"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/about"
+        android:orderInCategory="5"
+        android:title="@string/about"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/settings"
+        android:orderInCategory="5"
+        android:title="@string/settings"
+        app:showAsAction="never" />
+</menu>
