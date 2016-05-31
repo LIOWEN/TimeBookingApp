@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.CalendarView;
 import android.widget.Toast;
 
 /**
@@ -12,10 +13,13 @@ import android.widget.Toast;
  */
 public class Calendar  extends AppCompatActivity {
 
+    CalendarView calendar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.calendar_page);
+
+        calendar = (CalendarView)findViewById(R.id.calendar);
     }
 
     //#####################//

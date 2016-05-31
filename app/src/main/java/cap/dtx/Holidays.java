@@ -37,6 +37,11 @@ public class Holidays  extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
+        if (id == R.id.action_calendar) {
+            Intent intent = new Intent(this, Calendar.class);
+            startActivity(intent);
+            return true;
+        }
         if (id == R.id.home) {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
