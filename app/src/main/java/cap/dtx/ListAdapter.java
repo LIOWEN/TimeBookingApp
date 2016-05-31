@@ -63,15 +63,18 @@ public class ListAdapter extends BaseAdapter {
         ((TextView) result.findViewById(android.R.id.text1)).setTextColor(Color.parseColor("#070829"));
         ((TextView) result.findViewById(android.R.id.text2)).setText(item.getValue());
         ((TextView) result.findViewById(android.R.id.text2)).setTextColor(Color.parseColor("#FF0D0F4B"));
-        /** //old shizzle that might come in useful
-        for (int i = 0; i < MainActivity.list.size(); i++) {
-            if (item.getKey().equals(MainActivity.list.get(i))) {
+
+        for (int i = 0; i < Approvals.approvedItems.size(); i++) {
+            if(item.getValue().equals("approved")){
+                result.setBackgroundColor(Color.parseColor("#7ABA71"));
+            }
+            if(item.getValue().equals("pending")){
                 result.setBackgroundColor(Color.parseColor("#5f65a3"));
-            } else if (!MainActivity.list.contains(item.getKey())) {
-                result.setBackgroundColor(Color.parseColor("#2b2841"));
+            }
+            if(item.getValue().equals("rejected")){
+                result.setBackgroundColor(Color.parseColor("#960018"));
             }
         }
-         */
         return result;
     }
 
