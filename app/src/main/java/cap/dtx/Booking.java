@@ -1,6 +1,8 @@
 package cap.dtx;
 
 import android.content.Intent;
+import android.content.res.AssetManager;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -36,6 +38,9 @@ public class Booking extends AppCompatActivity {
     ArrayList<String> days;
     Float totalHours;
 
+    //to check the output in assets folder
+    AssetManager assetManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +63,7 @@ public class Booking extends AppCompatActivity {
         hoursBookedMap      = new HashMap<>();
         days                = new ArrayList<>();
         totalHours          = Float.valueOf(165);
+        assetManager        = getAssets();
 
 
         //#####################################################//
@@ -120,6 +126,8 @@ public class Booking extends AppCompatActivity {
                             Toast.makeText(getBaseContext(), date + " Added", Toast.LENGTH_SHORT).show();
                             days.add(date);
                             hoursBookedMap.put(date, hoursBox.getText().toString());
+                            calendar.setFocusedMonthDateColor(Color.parseColor("#3b499f"));
+
                         }
 
                         String finalNum = num.toString();
@@ -256,5 +264,6 @@ public class Booking extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 
 }

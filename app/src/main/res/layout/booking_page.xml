@@ -20,47 +20,41 @@
         android:layout_width="wrap_content"
         android:layout_height="300dp"
         android:id="@+id/calendarView"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/projectCode" />
-
-    <Spinner
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/monthSelector"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="3dp" />
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 
     <Spinner
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:id="@+id/typeSelector"
-        android:layout_alignBottom="@+id/monthSelector"
-        android:layout_toRightOf="@+id/monthSelector"
-        android:layout_toEndOf="@+id/monthSelector"
-        android:layout_marginTop="3dp" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_toRightOf="@+id/projectCode"
+        android:layout_toEndOf="@+id/projectCode"
+        android:layout_alignBottom="@+id/hoursBox"
+        android:layout_alignTop="@+id/hoursBox" />
 
     <EditText
         android:layout_width="190dp"
         android:layout_height="wrap_content"
         android:id="@+id/projectCode"
-        android:layout_below="@+id/monthSelector"
+        android:hint="Project Code"
+        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_toLeftOf="@+id/typeSelector"
-        android:layout_toStartOf="@+id/typeSelector"
-        android:hint="Project Code" />
+        android:layout_marginTop="5dp" />
 
     <EditText
         android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:id="@+id/taskNum"
-        android:layout_below="@+id/monthSelector"
-        android:layout_toRightOf="@+id/monthSelector"
-        android:layout_alignRight="@+id/typeSelector"
-        android:layout_alignEnd="@+id/typeSelector"
-        android:hint="Task Number" />
+        android:hint="Task Number"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_toRightOf="@+id/projectCode"
+        android:layout_toEndOf="@+id/projectCode"
+        android:layout_marginTop="5dp" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -71,23 +65,90 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_toStartOf="@+id/taskNum"
+        android:layout_toStartOf="@+id/submit"
         android:hint="Comment"
-        android:layout_toLeftOf="@+id/taskNum"
-        android:layout_alignTop="@+id/hoursBox"
         android:textAlignment="gravity"
-        android:textIsSelectable="false" />
+        android:textIsSelectable="false"
+        android:layout_alignTop="@+id/submit"
+        android:layout_toLeftOf="@+id/submit" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:inputType="number|numberDecimal"
+        android:ems="10"
         android:id="@+id/hoursBox"
-        android:layout_above="@+id/submit"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_toRightOf="@+id/comment"
-        android:layout_toEndOf="@+id/comment"
-        android:layout_alignParentStart="false"
-        android:hint="Time (Hours)" />
+        android:layout_below="@+id/projectCode"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:hint="Time (Hours)"
+        android:layout_marginTop="5dp"
+        android:layout_toLeftOf="@+id/typeSelector"
+        android:layout_toStartOf="@+id/typeSelector" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Hours Booked:"
+        android:id="@+id/text_hours_booked"
+        android:layout_alignTop="@+id/text_hours_left"
+        android:layout_alignLeft="@+id/calendarView"
+        android:layout_alignStart="@+id/calendarView" />
+
+    <TextView
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="0"
+        android:id="@+id/hours_booked"
+        android:layout_alignTop="@+id/text_hours_booked"
+        android:layout_toRightOf="@+id/text_hours_booked"
+        android:layout_toEndOf="@+id/text_hours_booked"
+        android:layout_marginLeft="5dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Hours Left to Book:"
+        android:id="@+id/text_hours_left"
+        android:layout_below="@+id/calendarView"
+        android:layout_toRightOf="@+id/hours_booked"
+        android:layout_toEndOf="@+id/hours_booked"
+        android:layout_marginLeft="40dp" />
+
+    <TextView
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="165"
+        android:id="@+id/hours_left"
+        android:layout_alignTop="@+id/text_hours_left"
+        android:layout_toRightOf="@+id/text_hours_left"
+        android:layout_toEndOf="@+id/text_hours_left"
+        android:layout_marginLeft="5dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Expected Hours:"
+        android:id="@+id/text_exp_hours"
+        android:layout_below="@+id/text_hours_booked"
+        android:layout_alignLeft="@+id/text_hours_booked"
+        android:layout_alignStart="@+id/text_hours_booked"
+        android:layout_marginTop="5dp" />
+
+    <TextView
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="0"
+        android:id="@+id/exp_hours"
+        android:layout_alignTop="@+id/text_exp_hours"
+        android:layout_toRightOf="@+id/text_exp_hours"
+        android:layout_toEndOf="@+id/text_exp_hours"
+        android:layout_marginLeft="5dp" />
 
 </RelativeLayout>
