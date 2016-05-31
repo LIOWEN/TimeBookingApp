@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -24,45 +25,45 @@ import java.util.Map;
  */
 public class Booking extends AppCompatActivity {
     Button submit;
+    TextView text_hours_booked, hours_booked, text_hours_left, hours_left, text_exp_hours,
+            exp_hours;
     EditText projectCode, taskNum, comment, hoursBox;
     CalendarView calendar;
-    Spinner monthSelector, typeSelector;
-    ArrayList<String> months;
+    Spinner typeSelector;
     ArrayList<String> types;
     HashMap<String,String>selectedItems;
+    HashMap<String,String> hoursBookedMap;
     ArrayList<String> days;
+    Float totalHours;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.booking_page);
 
-        comment         = (EditText)findViewById(R.id.comment);
-        projectCode     = (EditText)findViewById(R.id.projectCode);
-        taskNum         = (EditText)findViewById(R.id.taskNum);
-        hoursBox        = (EditText)findViewById(R.id.hoursBox);
-        calendar        = (CalendarView)findViewById(R.id.calendarView);
-        submit          = (Button)findViewById(R.id.submit);
-        monthSelector   = (Spinner)findViewById(R.id.monthSelector);
-        typeSelector    = (Spinner)findViewById(R.id.typeSelector);
-        selectedItems   = new HashMap<>();
-        days            = new ArrayList<>();
-
+        comment             = (EditText)findViewById(R.id.comment);
+        projectCode         = (EditText)findViewById(R.id.projectCode);
+        taskNum             = (EditText)findViewById(R.id.taskNum);
+        hoursBox            = (EditText)findViewById(R.id.hoursBox);
+        calendar            = (CalendarView)findViewById(R.id.calendarView);
+        submit              = (Button)findViewById(R.id.submit);
+        typeSelector        = (Spinner)findViewById(R.id.typeSelector);
+        text_hours_booked   = (TextView)findViewById(R.id.text_hours_booked);
+        hours_booked        = (TextView)findViewById(R.id.hours_booked);
+        text_hours_left     = (TextView)findViewById(R.id.text_hours_left);
+        hours_left          = (TextView)findViewById(R.id.hours_left);
+        text_exp_hours      = (TextView)findViewById(R.id.text_exp_hours);
+        exp_hours           = (TextView)findViewById(R.id.exp_hours);
+        selectedItems       = new HashMap<>();
+        hoursBookedMap      = new HashMap<>();
+        days                = new ArrayList<>();
+        totalHours          = Float.valueOf(165);
 
 
         //#####################################################//
         // Populates arraylists for spinner monthSelector and  //
         // typeSelector                                        //
         //#####################################################//
-
-        months = new ArrayList<String>();
-        months.add("Month");
-        months.add("Jan");months.add("Feb");
-        months.add("Mar");months.add("Apr");
-        months.add("May");months.add("Jun");
-        months.add("Jul");months.add("Aug");
-        months.add("Sep");months.add("Oct");
-        months.add("Nov");months.add("Dec");
 
         types = new ArrayList<String>();
         types.add("Type");
@@ -71,18 +72,6 @@ public class Booking extends AppCompatActivity {
         //##########################################//
         // Handles what is selected in the spinners //
         //##########################################//
-
-        monthSelector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                selectedItems.put("Month", monthSelector.getItemAtPosition(position).toString());
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
 
         typeSelector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -110,15 +99,37 @@ public class Booking extends AppCompatActivity {
                 else {
                     String date = dayOfMonth + " " + (month + 1) + " " + year + " -"
                             + h + "-";
-                    if (days.contains(date)) {
-                        Toast.makeText(getBaseContext(), date + " Removed", Toast.LENGTH_SHORT).show();
-                        days.remove(date);
 
-                    } else {
-                        Toast.makeText(getBaseContext(), date + " Added", Toast.LENGTH_SHORT).show();
-                        days.add(date);
+                    Float num = Float.valueOf(0);
+                    Iterator it = hoursBookedMap.entrySet().iterator();
+                    while (it.hasNext()) {
+                        Map.Entry pair = (Map.Entry) it.next();
+                        num += Float.parseFloat((String) pair.getValue());
                     }
-                    monthSelector.setSelection(month + 1);
+
+                    if(hours_left.getText().toString().equals("0.0") || (totalHours - num)<0){
+                        Toast.makeText(getBaseContext(), "No more hours left ", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        if (days.contains(date)) {
+                            Toast.makeText(getBaseContext(), date + " Removed", Toast.LENGTH_SHORT).show();
+                            days.remove(date);
+                            hoursBookedMap.remove(date);
+
+                        } else {
+                            Toast.makeText(getBaseContext(), date + " Added", Toast.LENGTH_SHORT).show();
+                            days.add(date);
+                            hoursBookedMap.put(date, hoursBox.getText().toString());
+                        }
+
+                        String finalNum = num.toString();
+                        hours_booked.setText(finalNum);
+
+                        //might remove expected and total due to complications in working out bank holidays
+                        //and the ability to book multiple months
+                        exp_hours.setText(totalHours.toString());
+                        hours_left.setText((totalHours - num) + "");
+                    }
                 }
             }
         });
@@ -131,20 +142,20 @@ public class Booking extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(selectedItems.get("Month").equals("Month")){
-                    Toast.makeText(getBaseContext(), "Please select a month"
+                if(projectCode.getText().toString().trim().equals("")){
+                    Toast.makeText(getBaseContext(), "Please select a project code"
+                            ,Toast.LENGTH_SHORT).show();
+                }
+                else if(taskNum.getText().toString().trim().equals("")){
+                    Toast.makeText(getBaseContext(), "Please select a task number"
                             ,Toast.LENGTH_SHORT).show();
                 }
                 else if(selectedItems.get("Type").equals("Type")){
                     Toast.makeText(getBaseContext(), "Please select a type"
                             ,Toast.LENGTH_SHORT).show();
                 }
-                else if(projectCode.getText().toString().trim().equals("")){
-                    Toast.makeText(getBaseContext(), "Please select a project code"
-                            ,Toast.LENGTH_SHORT).show();
-                }
-                else if(taskNum.getText().toString().trim().equals("")){
-                    Toast.makeText(getBaseContext(), "Please select a task number"
+                else if(days.size() == 0){
+                    Toast.makeText(getBaseContext(), "Please select days to book"
                             ,Toast.LENGTH_SHORT).show();
                 }
                 else {
@@ -178,10 +189,6 @@ public class Booking extends AppCompatActivity {
         // Creating adapter for spinner with a drop down layout style       //
         // list view with radio button and attaches data adapter to spinner //
         //##################################################################//
-
-        ArrayAdapter<String> monthAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, months);
-        monthAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        monthSelector.setAdapter(monthAdapter);
 
         ArrayAdapter<String> typeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, types);
         typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
