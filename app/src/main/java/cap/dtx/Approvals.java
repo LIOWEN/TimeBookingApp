@@ -23,7 +23,7 @@ public class Approvals extends AppCompatActivity {
     ListView approvalList;
     AssetManager assetManager;
     String testData;
-    HashMap<String,String> approvedItems;
+    static HashMap<String,String> approvedItems;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
